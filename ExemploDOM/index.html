@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Define o padrão de caracteres da página -->
+  <meta charset="UTF-8">
+
+  <!-- Deixa a página adaptável para celular e computador -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título que aparece na aba do navegador -->
+  <title>Quebra-Cabeça Interativo</title>
+
+  <!-- Conecta o arquivo CSS ao HTML -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Área principal da página -->
+  <main class="container">
+
+    <!-- Cabeçalho da página -->
+    <section class="hero">
+      <p class="tag">Programação Website I</p>
+
+      <h1>Quebra-Cabeça Interativo</h1>
+
+      <p class="descricao">
+        Nesta aula vamos criar a primeira peça interativa usando HTML, CSS e JavaScript.
+      </p>
+    </section>
+
+    <!-- Área onde ficará o projeto -->
+    <section class="area-projeto">
+
+      <!-- Card com informações e botão -->
+      <div class="card-info">
+        <h2>Peça 01</h2>
+
+        <p>
+          Clique no botão para ativar a primeira peça do projeto.
+        </p>
+
+        <!-- Área que mostra o status da peça -->
+        <div class="status-box">
+          <span>Status:</span>
+          <strong id="statusTexto">Bloqueada</strong>
+        </div>
+
+        <!-- Botão que será usado pelo JavaScript -->
+        <button id="btnAtivar" class="btn-principal">
+          Ativar Peça
+        </button>
+      </div>
+
+      <!-- Peça visual do quebra-cabeça -->
+      <div id="peca" class="peca bloqueada">
+        <div class="peca-conteudo">
+          <span id="iconePeca" class="icone">🔒</span>
+          <h3 id="tituloPeca">Peça Bloqueada</h3>
+          <p id="textoPeca">Aguardando interação...</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Conecta o JavaScript ao HTML -->
+  <script src="js/script.js"></script>
+</body>
+</html>

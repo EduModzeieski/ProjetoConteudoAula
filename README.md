@@ -1,0 +1,1 @@
+Peguei um modelo base do projeto, aperfeiçoei ele, adicionando conteúdos para criação de variáveis e de visualização para que o usuário tenha um melhor entendimento sobre o sistema, nele eu adicionei páginas novas e botões para acontecer a interação com o usuário, o projeto conta com explicações sobre os conteúdos vistos em aula no dia 28/04/2026

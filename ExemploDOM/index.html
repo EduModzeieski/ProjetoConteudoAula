@@ -35,17 +35,17 @@
       <div class="barra-progresso">
         <div id="barraPreenchida" class="barra-preenchida"></div>
       </div>
-      <p>Peças Ativadas: <span id="pecasAtivadas">0</span>/2</p>
+      <p>Peças Ativadas: <span id="pecasAtivadas">0</span>/<span id="pecasTotal">6</span></p>
     </section>
 
     <!-- Peça 01 -->
     <section class="area-projeto">
-      <!-- Card com informações e botão -->
+      <!-- Card com informações -->
       <div class="card-info">
         <h2>Peça 01</h2>
 
         <p>
-          Clique no botão para ativar a primeira peça do projeto.
+          Clique diretamente na peça para ativá-la.
         </p>
 
         <!-- Área que mostra o status da peça -->
@@ -53,31 +53,26 @@
           <span>Status:</span>
           <strong id="statusTexto1">Bloqueada</strong>
         </div>
-
-        <!-- Botão que será usado pelo JavaScript -->
-        <button id="btnAtivar1" class="btn-principal">
-          Ativar Peça
-        </button>
       </div>
 
-      <!-- Peça visual do quebra-cabeça -->
-      <div id="peca1" class="peca bloqueada">
+      <!-- Peça visual do quebra-cabeça - AGORA CLICÁVEL -->
+      <div id="peca1" class="peca bloqueada" onclick="ativarPeca(pecas[0])">
         <div class="peca-conteudo">
           <span id="iconePeca1" class="icone">🔒</span>
           <h3 id="tituloPeca1">Peça Bloqueada</h3>
-          <p id="textoPeca1">Aguardando interação...</p>
+          <p id="textoPeca1">Clique para ativar</p>
         </div>
       </div>
     </section>
 
     <!-- Peça 02 -->
     <section class="area-projeto">
-      <!-- Card com informações e botão -->
+      <!-- Card com informações -->
       <div class="card-info">
         <h2>Peça 02</h2>
 
         <p>
-          Clique no botão para ativar a segunda peça do projeto.
+          Clique diretamente na peça para ativá-la.
         </p>
 
         <!-- Área que mostra o status da peça -->
@@ -85,19 +80,110 @@
           <span>Status:</span>
           <strong id="statusTexto2">Bloqueada</strong>
         </div>
-
-        <!-- Botão que será usado pelo JavaScript -->
-        <button id="btnAtivar2" class="btn-principal">
-          Ativar Peça
-        </button>
       </div>
 
-      <!-- Peça visual do quebra-cabeça -->
-      <div id="peca2" class="peca bloqueada">
+      <!-- Peça visual do quebra-cabeça - AGORA CLICÁVEL -->
+      <div id="peca2" class="peca bloqueada" onclick="ativarPeca(pecas[1])">
         <div class="peca-conteudo">
           <span id="iconePeca2" class="icone">🔒</span>
           <h3 id="tituloPeca2">Peça Bloqueada</h3>
-          <p id="textoPeca2">Aguardando interação...</p>
+          <p id="textoPeca2">Clique para ativar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Peça 03 -->
+    <section class="area-projeto">
+      <div class="card-info">
+        <h2>Peça 03</h2>
+
+        <p>
+          Clique diretamente na peça para ativá-la.
+        </p>
+
+        <div class="status-box">
+          <span>Status:</span>
+          <strong id="statusTexto3">Bloqueada</strong>
+        </div>
+      </div>
+
+      <div id="peca3" class="peca bloqueada" onclick="ativarPeca(pecas[2])">
+        <div class="peca-conteudo">
+          <span id="iconePeca3" class="icone">🔒</span>
+          <h3 id="tituloPeca3">Peça Bloqueada</h3>
+          <p id="textoPeca3">Clique para ativar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Peça 04 -->
+    <section class="area-projeto">
+      <div class="card-info">
+        <h2>Peça 04</h2>
+
+        <p>
+          Clique diretamente na peça para ativá-la.
+        </p>
+
+        <div class="status-box">
+          <span>Status:</span>
+          <strong id="statusTexto4">Bloqueada</strong>
+        </div>
+      </div>
+
+      <div id="peca4" class="peca bloqueada" onclick="ativarPeca(pecas[3])">
+        <div class="peca-conteudo">
+          <span id="iconePeca4" class="icone">🔒</span>
+          <h3 id="tituloPeca4">Peça Bloqueada</h3>
+          <p id="textoPeca4">Clique para ativar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Peça 05 -->
+    <section class="area-projeto">
+      <div class="card-info">
+        <h2>Peça 05</h2>
+
+        <p>
+          Clique diretamente na peça para ativá-la.
+        </p>
+
+        <div class="status-box">
+          <span>Status:</span>
+          <strong id="statusTexto5">Bloqueada</strong>
+        </div>
+      </div>
+
+      <div id="peca5" class="peca bloqueada" onclick="ativarPeca(pecas[4])">
+        <div class="peca-conteudo">
+          <span id="iconePeca5" class="icone">🔒</span>
+          <h3 id="tituloPeca5">Peça Bloqueada</h3>
+          <p id="textoPeca5">Clique para ativar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Peça 06 -->
+    <section class="area-projeto">
+      <div class="card-info">
+        <h2>Peça 06</h2>
+
+        <p>
+          Clique diretamente na peça para ativá-la.
+        </p>
+
+        <div class="status-box">
+          <span>Status:</span>
+          <strong id="statusTexto6">Bloqueada</strong>
+        </div>
+      </div>
+
+      <div id="peca6" class="peca bloqueada" onclick="ativarPeca(pecas[5])">
+        <div class="peca-conteudo">
+          <span id="iconePeca6" class="icone">🔒</span>
+          <h3 id="tituloPeca6">Peça Bloqueada</h3>
+          <p id="textoPeca6">Clique para ativar</p>
         </div>
       </div>
     </section>

@@ -17,10 +17,30 @@ body {
 
 /* Define largura máxima do conteúdo */
 .container {
-  width: 90%;
-  max-width: 1100px;
+  width: 95%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 0;
+  padding: 60px 20px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Adicionar um efeito de fundo sutil */
+.container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(24, 171, 144, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Centraliza o cabeçalho */
@@ -62,9 +82,21 @@ body {
 .area-projeto {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 50px;
   align-items: center;
-  margin-bottom: 60px;
+  padding: 40px;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+/* Efeito hover nas áreas do projeto */
+.area-projeto:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(148, 163, 184, 0.25);
+  transform: translateY(-2px);
 }
 
 /* ========================= */
@@ -170,7 +202,25 @@ body {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de brilho nos botões */
+.btn-principal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-principal:hover::before {
+  left: 100%;
 }
 
 /* Espaçamento entre botões empilhados */
@@ -191,10 +241,30 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.4s;
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
   border-radius: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Efeito hover nas peças */
+.peca:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeito hover específico para peças bloqueadas */
+.peca.bloqueada:hover {
+  border-color: rgba(0, 106, 255, 0.4);
+  filter: grayscale(20%);
+}
+
+/* Efeito hover específico para peças ativas */
+.peca.ativa:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 30px 60px rgba(34, 197, 94, 0.4);
 }
 
 /* Cria um brilho visual na peça */
@@ -241,10 +311,248 @@ body {
 
 /* Estado ativado da peça */
 .ativa {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  border: 2px solid rgba(187, 247, 208, 0.6);
-  box-shadow: 0 25px 60px rgba(34, 197, 94, 0.35);
+  border: 3px solid rgba(187, 247, 208, 0.8);
+  box-shadow:
+    0 25px 60px rgba(34, 197, 94, 0.4),
+    inset 0 0 30px rgba(34, 197, 94, 0.1);
   transform: scale(1.03);
+  position: relative;
+  overflow: hidden;
+  animation: activatePulse 0.6s ease-out;
+}
+
+/* Animação de ativação */
+@keyframes activatePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 25px 60px rgba(34, 197, 94, 0.6);
+  }
+  100% {
+    transform: scale(1.03);
+    box-shadow: 0 25px 60px rgba(34, 197, 94, 0.4);
+  }
+}
+
+/* Efeito de brilho nas peças ativas */
+.ativa::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shine 3s infinite;
+  pointer-events: none;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 1024px) {
+  .area-projeto {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px;
+  }
+
+  .container {
+    padding: 40px 15px;
+    gap: 40px;
+  }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .area-projeto {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .card-info {
+    padding: 24px;
+  }
+
+  .peca {
+    min-height: 280px;
+  }
+
+  .icone {
+    font-size: 50px;
+  }
+
+  .peca h3 {
+    font-size: 24px;
+  }
+}
+
+/* ========================= */
+/* MENSAGEM FINAL */
+/* ========================= */
+
+.mensagem-final {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.mensagem-final.ativo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mensagem-conteudo {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 2px solid rgba(34, 197, 94, 0.5);
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 25px 60px rgba(34, 197, 94, 0.3);
+  animation: mensagemEntrada 0.6s ease-out;
+}
+
+@keyframes mensagemEntrada {
+  0% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.mensagem-conteudo .icone-celebracao {
+  font-size: 60px;
+  display: block;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.mensagem-conteudo h2 {
+  color: #f8fafc;
+  font-size: 28px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.mensagem-conteudo p {
+  color: #cbd5e1;
+  font-size: 18px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.btn-celebracao {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-celebracao:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+}
+
+.btn-celebracao::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-celebracao:hover::before {
+  left: 100%;
+}
+
+/* Responsividade para a mensagem final */
+@media (max-width: 768px) {
+  .mensagem-conteudo {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+
+  .mensagem-conteudo h2 {
+    font-size: 24px;
+  }
+
+  .mensagem-conteudo .icone-celebracao {
+    font-size: 50px;
+  }
+}
+
+/* Efeitos de hover e animação */
+.peca {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.peca:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+}
+
+.peca.ativa:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 35px 80px rgba(34, 197, 94, 0.4);
+}
+
+/* Animação de clique */
+/* Animação de clique */
+.clicando {
+  animation: clickPulse 0.2s ease-out;
+}
+
+@keyframes clickPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.peca.clicando {
+  animation: clickPulse 0.2s ease-in-out;
 }
 
 /* Altera a cor do título quando a peça está ativa */
@@ -346,9 +654,19 @@ body.page-laranja .tag {
 }
 
 /* Adaptação para telas menores */
+@media (max-width: 1200px) {
+  .area-projeto {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 @media (max-width: 800px) {
   .area-projeto {
     grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 60px;
+    padding: 15px;
   }
 
   .hero h1 {

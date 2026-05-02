@@ -230,30 +230,45 @@ const cores = [
     nome: 'Azul',
     classe: 'cor-azul',
     gradiente: 'linear-gradient(135deg, #0066ff, #0033cc)',
-    emoji: '🔵'
+    emoji: '🔵',
+    url: 'azul.html'
   },
   {
     nome: 'Roxo',
     classe: 'cor-roxo',
     gradiente: 'linear-gradient(135deg, #9933ff, #6600cc)',
-    emoji: '🟣'
+    emoji: '🟣',
+    url: 'roxo.html'
   },
   {
     nome: 'Rosa',
     classe: 'cor-rosa',
     gradiente: 'linear-gradient(135deg, #ff0099, #cc0066)',
-    emoji: '🩷'
+    emoji: '🩷',
+    url: 'rosa.html'
   },
   {
     nome: 'Laranja',
     classe: 'cor-laranja',
     gradiente: 'linear-gradient(135deg, #ff6600, #cc5200)',
-    emoji: '🟠'
+    emoji: '🟠',
+    url: 'laranja.html'
   }
 ];
 
 // Índice da cor atual
 let indiceCorAtual = 0;
+
+// Botões da área de cor
+const btnMudarCor = document.getElementById('btnMudarCor');
+const btnIrCor = document.getElementById('btnIrCor');
+
+function atualizarBotaoIrParaCor(indice) {
+  const corSelecionada = cores[indice];
+  if (!corSelecionada || !btnIrCor) return;
+  btnIrCor.innerText = `Ir para página ${corSelecionada.nome}`;
+  btnIrCor.dataset.url = corSelecionada.url;
+}
 
 // Função que muda a cor da peça usando lógica com if
 function mudarCorPeca() {
@@ -263,14 +278,11 @@ function mudarCorPeca() {
   const textoCor = document.getElementById('textoCor');
   const iconeCor = document.getElementById('iconeCor');
   
-  // Usar if para verificar se chegou ao final do array
-  if (indiceCorAtual >= cores.length) {
-    // Se chegou ao final, volta ao início
-    indiceCorAtual = 0;
-  }
+  // Calcular qual será a próxima cor
+  const novoIndice = (indiceCorAtual + 1) % cores.length;
   
   // Pegar a cor atual do array
-  const corSelecionada = cores[indiceCorAtual];
+  const corSelecionada = cores[novoIndice];
   
   // Remover todas as classes de cor anterior
   cores.forEach(cor => {
@@ -289,12 +301,28 @@ function mudarCorPeca() {
   // Aplicar gradiente diretamente
   pecaCor.style.background = corSelecionada.gradiente;
   
-  // Incrementar índice para próxima cor
-  indiceCorAtual++;
+  // Atualizar botão de redirecionamento
+  atualizarBotaoIrParaCor(novoIndice);
+  
+  // Salvar índice da cor atual
+  indiceCorAtual = novoIndice;
 }
 
 // Adicionar evento de clique ao botão de mudança de cor
-const btnMudarCor = document.getElementById('btnMudarCor');
 btnMudarCor.addEventListener('click', function() {
   mudarCorPeca();
+});
+
+// Evento para navegar à página de cor atual
+if (btnIrCor) {
+  btnIrCor.addEventListener('click', function() {
+    if (btnIrCor.dataset.url) {
+      window.location.href = btnIrCor.dataset.url;
+    }
+  });
+}
+
+// Atualizar o botão de redirecionamento quando a página carrega
+document.addEventListener('DOMContentLoaded', function() {
+  atualizarBotaoIrParaCor(indiceCorAtual);
 });

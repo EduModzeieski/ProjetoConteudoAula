@@ -173,6 +173,11 @@ body {
   transition: 0.3s;
 }
 
+/* Espaçamento entre botões empilhados */
+.btn-principal + .btn-principal {
+  margin-top: 16px;
+}
+
 /* Efeito quando passa o mouse no botão */
 .btn-principal:hover {
   transform: translateY(-3px);
@@ -188,19 +193,8 @@ body {
   align-items: center;
   transition: 0.4s;
   position: relative;
-  overflow: visible;
-  
-  /* Formato realista de peça de quebra-cabeça */
-  clip-path: polygon(
-    /* Topo */
-    10% 5%, 10% 0%, 30% 0%, 35% 8%, 40% 0%, 60% 0%, 65% 8%, 70% 0%, 90% 0%, 90% 5%,
-    /* Direita */
-    95% 20%, 100% 25%, 95% 30%, 100% 50%, 95% 55%, 100% 60%, 95% 70%, 90% 75%, 90% 95%,
-    /* Fundo */
-    70% 100%, 65% 92%, 60% 100%, 40% 100%, 35% 92%, 30% 100%, 10% 100%, 10% 95%,
-    /* Esquerda */
-    5% 70%, 0% 60%, 5% 55%, 0% 50%, 5% 30%, 0% 25%, 5% 20%
-  );
+  overflow: hidden;
+  border-radius: 28px;
 }
 
 /* Cria um brilho visual na peça */
@@ -209,16 +203,7 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15));
-  clip-path: polygon(
-    /* Topo */
-    10% 5%, 10% 0%, 30% 0%, 35% 8%, 40% 0%, 60% 0%, 65% 8%, 70% 0%, 90% 0%, 90% 5%,
-    /* Direita */
-    95% 20%, 100% 25%, 95% 30%, 100% 50%, 95% 55%, 100% 60%, 95% 70%, 90% 75%, 90% 95%,
-    /* Fundo */
-    70% 100%, 65% 92%, 60% 100%, 40% 100%, 35% 92%, 30% 100%, 10% 100%, 10% 95%,
-    /* Esquerda */
-    5% 70%, 0% 60%, 5% 55%, 0% 50%, 5% 30%, 0% 25%, 5% 20%
-  );
+  pointer-events: none;
 }
 
 /* Organiza o conteúdo interno da peça */
@@ -301,6 +286,63 @@ body {
   border: 2px solid rgba(255, 102, 0, 0.6);
   box-shadow: 0 25px 60px rgba(255, 102, 0, 0.35);
   transform: scale(1.03);
+}
+
+/* Estilos de página por cor */
+body.page-azul {
+  background: linear-gradient(135deg, #071d40, #0033cc 35%, #0a4dff 100%);
+  color: #e0f2fe;
+}
+
+body.page-azul .hero {
+  background: rgba(0, 44, 112, 0.45);
+}
+
+body.page-azul .tag {
+  background-color: rgba(59, 130, 246, 0.25);
+  color: #bfdbfe;
+}
+
+body.page-roxo {
+  background: linear-gradient(135deg, #230b3a, #6d28d9 40%, #9d4edd 100%);
+  color: #f5e0ff;
+}
+
+body.page-roxo .hero {
+  background: rgba(64, 0, 96, 0.45);
+}
+
+body.page-roxo .tag {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #e9d5ff;
+}
+
+body.page-rosa {
+  background: linear-gradient(135deg, #2b0b2f, #d946ef 35%, #fb7185 100%);
+  color: #ffe4f0;
+}
+
+body.page-rosa .hero {
+  background: rgba(112, 15, 100, 0.45);
+}
+
+body.page-rosa .tag {
+  background-color: rgba(245, 158, 242, 0.2);
+  color: #fce7f3;
+}
+
+body.page-laranja {
+  background: linear-gradient(135deg, #4a2100, #ea580c 35%, #fb923c 100%);
+  color: #fff7e6;
+}
+
+body.page-laranja .hero {
+  background: rgba(97, 0, 0, 0.35);
+}
+
+body.page-laranja .tag {
+  background-color: rgba(251, 146, 60, 0.25);
+  color: #ffedd5;
 }
 
 /* Adaptação para telas menores */

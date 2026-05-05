@@ -828,3 +828,152 @@ body.page-laranja .tag {
   box-shadow: 0 15px 40px rgba(22, 221, 154, 0.4);
 }
 
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #0f172a;
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.peca {
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bloqueada {
+  background: #334155;
+}
+
+.ativa {
+  border: 2px solid #22c55e;
+}
+
+.peca:hover {
+  transform: scale(1.05);
+}
+
+.progresso {
+  margin: 20px;
+}
+
+.barra {
+  width: 80%;
+  height: 20px;
+  background: #444;
+  margin: auto;
+  border-radius: 10px;
+}
+
+#barraPreenchida {
+  height: 100%;
+  width: 0%;
+  background: #22c55e;
+  border-radius: 10px;
+}
+
+.mensagem-limite {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: red;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #0f172a;
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.peca {
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bloqueada {
+  background: #334155;
+}
+
+.ativa {
+  border: 2px solid #22c55e;
+}
+
+.peca:hover {
+  transform: scale(1.05);
+}
+
+.progresso {
+  margin: 20px;
+}
+
+.barra {
+  width: 80%;
+  height: 20px;
+  background: #444;
+  margin: auto;
+  border-radius: 10px;
+}
+
+#barraPreenchida {
+  height: 100%;
+  width: 0%;
+  background: #22c55e;
+  border-radius: 10px;
+}
+
+.mensagem-limite {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: red;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* ========================= */
+/* MENSAGEM DE LIMITE */
+/* ========================= */
+
+.mensagem-limite {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #dc2626;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-weight: bold;
+  z-index: 9999;
+  animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

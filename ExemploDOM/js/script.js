@@ -1,4 +1,11 @@
-// Array com as configurações de cada peça
+// =============================
+// CONFIGURAÇÃO
+// =============================
+let LIMITE_ATIVAS = 2; // 3 no exercício 2
+
+// =============================
+// ARRAY DE PEÇAS
+// =============================
 const pecas = [
   {
     btnId: 'btnAtivar1',
@@ -10,8 +17,8 @@ const pecas = [
     numero: 1,
     proxima: 'pagina2.html',
     ativada: false,
-    ativo: false,  // Controle de estado
-    corAtiva: 'linear-gradient(135deg, #16a34a, #22c55e)', // Verde
+    ativo: false,
+    corAtiva: 'linear-gradient(135deg, #16a34a, #22c55e)',
     emojiAtivo: '🧩',
     textoAtivo: 'Parabéns! Você ativou a peça 1'
   },
@@ -25,8 +32,8 @@ const pecas = [
     numero: 2,
     proxima: 'pagina3.html',
     ativada: false,
-    ativo: false,  // Controle de estado
-    corAtiva: 'linear-gradient(135deg, #dc2626, #ef4444)', // Vermelho
+    ativo: false,
+    corAtiva: 'linear-gradient(135deg, #dc2626, #ef4444)',
     emojiAtivo: '🔥',
     textoAtivo: 'Parabéns! Você ativou a peça 2'
   },
@@ -38,9 +45,10 @@ const pecas = [
     tituloId: 'tituloPeca3',
     textoId: 'textoPeca3',
     numero: 3,
+    proxima: 'pagina4.html',
     ativada: false,
     ativo: false,
-    corAtiva: 'linear-gradient(135deg, #7c3aed, #8b5cf6)', // Roxo
+    corAtiva: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
     emojiAtivo: '💜',
     textoAtivo: 'Parabéns! Você ativou a peça 3'
   },
@@ -52,9 +60,10 @@ const pecas = [
     tituloId: 'tituloPeca4',
     textoId: 'textoPeca4',
     numero: 4,
+    proxima: 'pagina5.html',
     ativada: false,
     ativo: false,
-    corAtiva: 'linear-gradient(135deg, #ea580c, #f97316)', // Laranja
+    corAtiva: 'linear-gradient(135deg, #ea580c, #f97316)',
     emojiAtivo: '🧡',
     textoAtivo: 'Parabéns! Você ativou a peça 4'
   },
@@ -66,9 +75,10 @@ const pecas = [
     tituloId: 'tituloPeca5',
     textoId: 'textoPeca5',
     numero: 5,
+    proxima: 'pagina6.html',
     ativada: false,
     ativo: false,
-    corAtiva: 'linear-gradient(135deg, #0891b2, #06b6d4)', // Azul
+    corAtiva: 'linear-gradient(135deg, #0891b2, #06b6d4)',
     emojiAtivo: '💙',
     textoAtivo: 'Parabéns! Você ativou a peça 5'
   },
@@ -80,69 +90,87 @@ const pecas = [
     tituloId: 'tituloPeca6',
     textoId: 'textoPeca6',
     numero: 6,
+    proxima: 'pagina7.html',
     ativada: false,
     ativo: false,
-    corAtiva: 'linear-gradient(135deg, #be185d, #ec4899)', // Rosa
+    corAtiva: 'linear-gradient(135deg, #be185d, #ec4899)',
     emojiAtivo: '💖',
     textoAtivo: 'Parabéns! Você ativou a peça 6'
   }
 ];
 
-// Contador global de peças já ativadas (histórico)
-let pecasJaAtivadas = 0;
+// =============================
+// FUNÇÕES AUXILIARES
+// =============================
+function contarAtivas() {
+  return pecas.filter(p => p.ativo === true).length;
+}
 
-// Função para desativar todas as peças
+function mostrarMensagemLimite() {
+  let msg = document.querySelector('.mensagem-limite');
+
+  if (!msg) {
+    msg = document.createElement('div');
+    msg.className = 'mensagem-limite';
+    msg.innerText = 'Limite atingido!';
+
+    document.body.appendChild(msg);
+
+    setTimeout(() => {
+      msg.remove();
+    }, 2000);
+  }
+}
+
+// =============================
+// DESATIVAR TODAS
+// =============================
 function desativarTodasPecas() {
   pecas.forEach(config => {
     if (config.ativo === true) {
-      // Resetar visual da peça
+
       const peca = document.getElementById(config.pecaId);
       const status = document.getElementById(config.statusId);
       const icone = document.getElementById(config.iconeId);
       const titulo = document.getElementById(config.tituloId);
       const texto = document.getElementById(config.textoId);
 
-      // Remover classe "ativa" e adicionar "bloqueada"
       peca.classList.remove('ativa');
       peca.classList.add('bloqueada');
-
-      // Remover cor específica (volta ao padrão)
       peca.style.background = '';
 
-      // Atualizar status
       status.innerText = 'Bloqueada';
       status.style.color = '#facc15';
 
-      // Atualizar visual da peça
       icone.innerText = '🔒';
       titulo.innerText = 'Peça Bloqueada';
       texto.innerHTML = 'Clique para ativar';
 
-      // Alterar estado da peça
       config.ativo = false;
 
-      // Salvar estado no sessionStorage
       sessionStorage.setItem(`peca${config.numero}Ativada`, 'false');
 
-      // Remover botão de redirecionamento
       const btnProximo = peca.querySelector('.btn-proximo');
-      if (btnProximo) {
-        btnProximo.remove();
-      }
+      if (btnProximo) btnProximo.remove();
     }
   });
 }
 
-// Função para ativar/desativar uma peça (com alternância)
+// =============================
+// ATIVAR PEÇA (ATUALIZADO)
+// =============================
 function ativarPeca(pecaConfig) {
-  // Usar variável let ativo para controlar estado
+
   let ativo = pecaConfig.ativo;
 
-  // Se não está ativo, ativar; se está ativo, desativar
   if (ativo === false) {
-    // DESAFIO: Apenas UMA peça pode ficar ativa por vez
-    // Antes de ativar, desativar todas as outras peças
-    desativarTodasPecas();
+
+    // 🔥 BLOQUEIO POR LIMITE
+    if (contarAtivas() >= LIMITE_ATIVAS) {
+      alert("Limite atingido!");
+      mostrarMensagemLimite();
+      return;
+    }
 
     const peca = document.getElementById(pecaConfig.pecaId);
     const status = document.getElementById(pecaConfig.statusId);
@@ -150,369 +178,96 @@ function ativarPeca(pecaConfig) {
     const titulo = document.getElementById(pecaConfig.tituloId);
     const texto = document.getElementById(pecaConfig.textoId);
 
-    // Adicionar animação de clique
     peca.classList.add('clicando');
-    setTimeout(() => {
-      peca.classList.remove('clicando');
-    }, 200);
+    setTimeout(() => peca.classList.remove('clicando'), 200);
 
-    // Remover classe "bloqueada" e adicionar "ativa"
     peca.classList.remove('bloqueada');
     peca.classList.add('ativa');
 
-    // Aplicar cor específica da peça
     peca.style.background = pecaConfig.corAtiva;
 
-    // Atualizar status
     status.innerText = 'Ativada';
     status.style.color = '#22c55e';
 
-    // Atualizar visual da peça com emoji específico
     icone.innerText = pecaConfig.emojiAtivo;
     titulo.innerText = `Peça ${pecaConfig.numero} Ativada`;
     texto.innerHTML = pecaConfig.textoAtivo;
 
-    // Alterar estado da peça
     pecaConfig.ativo = true;
     pecaConfig.ativada = true;
 
-    // Incrementar contador apenas se for a primeira ativação desta peça
-    if (!pecaConfig.jaFoiContada) {
-      pecasJaAtivadas++;
-      pecaConfig.jaFoiContada = true;
-    }
-
-    // Salvar estado no sessionStorage
     sessionStorage.setItem(`peca${pecaConfig.numero}Ativada`, 'true');
 
-    // Criar botão de redirecionamento (se não existir)
-    if (pecaConfig.proxima && !peca.querySelector('.btn-proximo')) {
-      const btnProximo = document.createElement('button');
-      btnProximo.innerText = 'Ir para Próxima Etapa';
-      btnProximo.className = 'btn-principal btn-proximo';
-      btnProximo.style.marginTop = '20px';
-      btnProximo.onclick = function() {
-        window.location.href = pecaConfig.proxima;
-      };
-      peca.querySelector('.peca-conteudo').appendChild(btnProximo);
-    }
-
-    // Atualizar progresso
-    atualizarProgresso();
-
   } else {
-    // Desativar a peça
-    const peca = document.getElementById(pecaConfig.pecaId);
-    const status = document.getElementById(pecaConfig.statusId);
-    const icone = document.getElementById(pecaConfig.iconeId);
-    const titulo = document.getElementById(pecaConfig.tituloId);
-    const texto = document.getElementById(pecaConfig.textoId);
+    desativarPeca(pecaConfig);
+  }
 
-    // Adicionar animação de clique
-    peca.classList.add('clicando');
-    setTimeout(() => {
-      peca.classList.remove('clicando');
-    }, 200);
+  atualizarProgresso();
+}
 
-    // Remover classe "ativa" e adicionar "bloqueada"
-    peca.classList.remove('ativa');
-    peca.classList.add('bloqueada');
+// =============================
+// DESATIVAR UMA
+// =============================
+function desativarPeca(pecaConfig) {
 
-    // Remover cor específica (volta ao padrão)
-    peca.style.background = '';
+  const peca = document.getElementById(pecaConfig.pecaId);
+  const status = document.getElementById(pecaConfig.statusId);
+  const icone = document.getElementById(pecaConfig.iconeId);
+  const titulo = document.getElementById(pecaConfig.tituloId);
+  const texto = document.getElementById(pecaConfig.textoId);
 
-    // Atualizar status
-    status.innerText = 'Bloqueada';
-    status.style.color = '#facc15';
+  peca.classList.remove('ativa');
+  peca.classList.add('bloqueada');
+  peca.style.background = '';
 
-    // Atualizar visual da peça
-    icone.innerText = '🔒';
-    titulo.innerText = 'Peça Bloqueada';
-    texto.innerHTML = 'Clique para ativar';
+  status.innerText = 'Bloqueada';
+  status.style.color = '#facc15';
 
-    // Alterar estado da peça
-    pecaConfig.ativo = false;
+  icone.innerText = '🔒';
+  titulo.innerText = 'Peça Bloqueada';
+  texto.innerHTML = 'Clique para ativar';
 
-    // Salvar estado no sessionStorage
-    sessionStorage.setItem(`peca${pecaConfig.numero}Ativada`, 'false');
+  pecaConfig.ativo = false;
 
-    // Remover botão de redirecionamento
-    const btnProximo = peca.querySelector('.btn-proximo');
-    if (btnProximo) {
-      btnProximo.remove();
-    }
+  sessionStorage.setItem(`peca${pecaConfig.numero}Ativada`, 'false');
+}
 
-    // Atualizar progresso
-    atualizarProgresso();
+// =============================
+// PROGRESSO (CORRIGIDO)
+// =============================
+function atualizarProgresso() {
+
+  const pecasAtivadas = document.getElementById('pecasAtivadas');
+  const barraPreenchida = document.getElementById('barraPreenchida');
+
+  const contador = contarAtivas();
+
+  pecasAtivadas.innerText = contador;
+
+  const porcentagem = (contador / pecas.length) * 100;
+  barraPreenchida.style.width = porcentagem + '%';
+
+  // 🏆 CONDIÇÃO DE VITÓRIA
+  if (contador === pecas.length) {
+    alert("Você venceu!");
   }
 }
 
-// Função para restaurar estado das peças quando a página carrega
-function restaurarEstadoPecas() {
-  pecas.forEach(pecaConfig => {
-    const pecaAtivada = sessionStorage.getItem(`peca${pecaConfig.numero}Ativada`);
-    
-    if (pecaAtivada === 'true') {
-      const botao = document.getElementById(pecaConfig.btnId);
-      const peca = document.getElementById(pecaConfig.pecaId);
-      const status = document.getElementById(pecaConfig.statusId);
-      const icone = document.getElementById(pecaConfig.iconeId);
-      const titulo = document.getElementById(pecaConfig.tituloId);
-      const texto = document.getElementById(pecaConfig.textoId);
-
-      // Aplicar estilos de ativa
-      peca.classList.remove('bloqueada');
-      peca.classList.add('ativa');
-
-      // Aplicar cor específica da peça
-      peca.style.background = pecaConfig.corAtiva;
-
-      // Restaurar status
-      status.innerText = 'Ativada';
-      status.style.color = '#22c55e';
-
-      // Restaurar visual da peça com emoji específico
-      icone.innerText = pecaConfig.emojiAtivo;
-      titulo.innerText = `Peça ${pecaConfig.numero} Ativada`;
-      texto.innerHTML = pecaConfig.textoAtivo;
-
-      // Desabilitar botão
-      botao.innerText = 'Desativar Peça';
-
-      // Marcar como ativada
-      pecaConfig.ativada = true;
-      pecaConfig.ativo = true;
-
-        // Adicionar botão de redirecionamento
-      if (pecaConfig.proxima && !peca.querySelector('.btn-proximo')) {
-        const btnProximo = document.createElement('button');
-        btnProximo.innerText = 'Ir para Próxima Etapa';
-        btnProximo.className = 'btn-principal btn-proximo';
-        btnProximo.style.marginTop = '20px';
-        btnProximo.onclick = function() {
-          window.location.href = pecaConfig.proxima;
-        };
-        peca.querySelector('.peca-conteudo').appendChild(btnProximo);
-      }
-    }
-  });
+// =============================
+// RESET
+// =============================
+function resetarPecas() {
+  desativarTodasPecas();
+  atualizarProgresso();
 }
 
-// Restaurar estado quando a página carrega
+// =============================
+// INIT
+// =============================
 document.addEventListener('DOMContentLoaded', function() {
   const pecasTotal = document.getElementById('pecasTotal');
   if (pecasTotal) {
     pecasTotal.innerText = pecas.length;
   }
-  restaurarEstadoPecas();
-  // Atualizar progresso ao carregar a página
   atualizarProgresso();
-});
-
-// ========================================
-// DESAFIO — DOM AVANÇADO
-// ========================================
-// Função que altera múltiplos elementos ao mesmo tempo
-// Usa getElementById em múltiplos elementos
-function atualizarProgresso() {
-  // Usando getElementById para selecionar múltiplos elementos
-  const pecasAtivadas = document.getElementById('pecasAtivadas');
-  const barraPreenchida = document.getElementById('barraPreenchida');
-  
-  // Usar contador histórico de peças já ativadas (não quantas estão ativas agora)
-  const contador = pecasJaAtivadas;
-  
-  // ALTERAR VÁRIOS ELEMENTOS SIMULTANEAMENTE
-  // 1. Atualizar o número de peças ativadas
-  pecasAtivadas.innerText = contador;
-  
-  // 2. Calcular porcentagem baseada em peças já ativadas (máximo 6)
-  const porcentagem = Math.min((contador / pecas.length) * 100, 100);
-  barraPreenchida.style.width = porcentagem + '%';
-  
-  // 3. Alterar cor da barra conforme progresso
-  if (contador === 0) {
-    barraPreenchida.style.backgroundColor = '#facc15'; // Amarelo
-  } else if (contador >= 1 && contador <= 3) {
-    barraPreenchida.style.backgroundColor = '#16dd9a'; // Verde claro
-  } else if (contador >= 4 && contador <= 5) {
-    barraPreenchida.style.backgroundColor = '#22c55e'; // Verde
-  } else if (contador >= 6) {
-    barraPreenchida.style.backgroundColor = '#22c55e'; // Verde completo
-    // 4. Adicionar efeito visual quando todas foram ativadas pelo menos uma vez
-    pecasAtivadas.style.color = '#22c55e';
-    pecasAtivadas.style.fontWeight = 'bold';
-    pecasAtivadas.style.fontSize = '18px';
-
-    // DESAFIO: Mensagem final quando todas estiverem ativas
-    mostrarMensagemFinal();
-  } else {
-    // Resetar estilos quando não está completo
-    pecasAtivadas.style.color = '';
-    pecasAtivadas.style.fontWeight = '';
-    pecasAtivadas.style.fontSize = '';
-  }
-}
-
-// Função para mostrar mensagem final
-function mostrarMensagemFinal() {
-  // Verificar se já existe uma mensagem final
-  let mensagemFinal = document.querySelector('.mensagem-final');
-  if (!mensagemFinal) {
-    // Criar container da mensagem final
-    mensagemFinal = document.createElement('div');
-    mensagemFinal.className = 'mensagem-final';
-
-    // Criar conteúdo da mensagem
-    mensagemFinal.innerHTML = `
-      <div class="mensagem-conteudo">
-        <span class="icone-celebracao">🎉</span>
-        <h2>Parabéns, você completou a fase 1!</h2>
-        <p>Você ativou todas as 6 peças do quebra-cabeça.</p>
-        <button class="btn-celebracao" onclick="reiniciarJogo()">Jogar Novamente</button>
-      </div>
-    `;
-
-    // Adicionar ao final do container
-    document.querySelector('.container').appendChild(mensagemFinal);
-
-    // Adicionar animação de entrada
-    setTimeout(() => {
-      mensagemFinal.classList.add('ativo');
-    }, 100);
-  }
-}
-
-// Função para reiniciar o jogo
-function reiniciarJogo() {
-  // Resetar contador de peças já ativadas
-  pecasJaAtivadas = 0;
-
-  // Resetar flag de contagem de cada peça
-  pecas.forEach(config => {
-    config.jaFoiContada = false;
-  });
-
-  // Desativar todas as peças
-  desativarTodasPecas();
-
-  // Atualizar progresso
-  atualizarProgresso();
-
-  // Remover mensagem final
-  const mensagemFinal = document.querySelector('.mensagem-final');
-  if (mensagemFinal) {
-    mensagemFinal.remove();
-  }
-
-  // Scroll para o topo
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ========================================
-// DESAFIO — INTERAÇÃO
-// ========================================
-// Peça que muda de cor a cada clique usando lógica com if
-
-// Array com as cores disponíveis
-const cores = [
-  {
-    nome: 'Azul',
-    classe: 'cor-azul',
-    gradiente: 'linear-gradient(135deg, #0066ff, #0033cc)',
-    emoji: '🔵',
-    url: 'azul.html'
-  },
-  {
-    nome: 'Roxo',
-    classe: 'cor-roxo',
-    gradiente: 'linear-gradient(135deg, #9933ff, #6600cc)',
-    emoji: '🟣',
-    url: 'roxo.html'
-  },
-  {
-    nome: 'Rosa',
-    classe: 'cor-rosa',
-    gradiente: 'linear-gradient(135deg, #ff0099, #cc0066)',
-    emoji: '🩷',
-    url: 'rosa.html'
-  },
-  {
-    nome: 'Laranja',
-    classe: 'cor-laranja',
-    gradiente: 'linear-gradient(135deg, #ff6600, #cc5200)',
-    emoji: '🟠',
-    url: 'laranja.html'
-  }
-];
-
-// Índice da cor atual
-let indiceCorAtual = 0;
-
-// Botões da área de cor
-const btnMudarCor = document.getElementById('btnMudarCor');
-const btnIrCor = document.getElementById('btnIrCor');
-
-function atualizarBotaoIrParaCor(indice) {
-  const corSelecionada = cores[indice];
-  if (!corSelecionada || !btnIrCor) return;
-  btnIrCor.innerText = `Ir para página ${corSelecionada.nome}`;
-  btnIrCor.dataset.url = corSelecionada.url;
-}
-
-// Função que muda a cor da peça usando lógica com if
-function mudarCorPeca() {
-  const pecaCor = document.getElementById('pecaCor');
-  const corAtual = document.getElementById('corAtual');
-  const tituloCor = document.getElementById('tituloCor');
-  const textoCor = document.getElementById('textoCor');
-  const iconeCor = document.getElementById('iconeCor');
-  
-  // Calcular qual será a próxima cor
-  const novoIndice = (indiceCorAtual + 1) % cores.length;
-  
-  // Pegar a cor atual do array
-  const corSelecionada = cores[novoIndice];
-  
-  // Remover todas as classes de cor anterior
-  cores.forEach(cor => {
-    pecaCor.classList.remove(cor.classe);
-  });
-  
-  // Adicionar a nova classe de cor
-  pecaCor.classList.add(corSelecionada.classe);
-  
-  // Atualizar o conteúdo da peça
-  corAtual.innerText = corSelecionada.nome;
-  tituloCor.innerText = corSelecionada.nome;
-  iconeCor.innerText = corSelecionada.emoji;
-  textoCor.innerText = `Cor atual: ${corSelecionada.nome}. Clique novamente para mudar!`;
-  
-  // Aplicar gradiente diretamente
-  pecaCor.style.background = corSelecionada.gradiente;
-  
-  // Atualizar botão de redirecionamento
-  atualizarBotaoIrParaCor(novoIndice);
-  
-  // Salvar índice da cor atual
-  indiceCorAtual = novoIndice;
-}
-
-// Adicionar evento de clique ao botão de mudança de cor
-btnMudarCor.addEventListener('click', function() {
-  mudarCorPeca();
-});
-
-// Evento para navegar à página de cor atual
-if (btnIrCor) {
-  btnIrCor.addEventListener('click', function() {
-    if (btnIrCor.dataset.url) {
-      window.location.href = btnIrCor.dataset.url;
-    }
-  });
-}
-
-// Atualizar o botão de redirecionamento quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
-  atualizarBotaoIrParaCor(indiceCorAtual);
 });
